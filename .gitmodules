@@ -1,3 +1,6 @@
 [submodule "submodules/idp-tomcat"]
 	path = submodules/idp-tomcat
 	url = https://github.com/usq/idp-tomcat.git
+[submodule "submodules/idp-frontend"]
+	path = submodules/idp-frontend
+	url = https://github.com/Ahnde/idp-frontend.git
