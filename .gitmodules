@@ -4,3 +4,6 @@
 [submodule "submodules/idp-frontend"]
 	path = submodules/idp-frontend
 	url = https://github.com/Ahnde/idp-frontend.git
+[submodule "submodules/idp-editor"]
+	path = submodules/idp-editor
+	url = https://github.com/usq/formly-builder.git
