@@ -1,12 +1,41 @@
 #!/bin/bash
 
-##eval "$(docker-machine env default)"
-sed "s/localhost/$(docker-machine ip default)/g" < replaceip.js > replaceip2.js
-mv replaceip2.js replaceip.js
 
-docker build -t autoapache .
+sed "s/var backendURL = .*/var backendURL = \"$(docker-machine ip default)\";/g" < submodules/idp-frontend/app/js/backendconnector.js > tmp
+mv tmp submodules/idp-frontend/app/js/backendconnector.js
 
-docker run -d -p 80:80 -e "DOCKER_HOST=$(docker-machine ip default)" autoapache
+
+docker build -t autoapache -f Dockerfile_apache .
+docker build -t autotomcat -f Dockerfile_tomcat .
+docker build -t automysql -f Dockerfile_mysql .
+
+docker stop idpapache
+docker stop idptomcat
+docker stop idpmysql
+
+docker rm  idpapache
+docker rm  idptomcat
+docker rm  idpmysql
+
+docker rm  idpapache
+docker rm  idptomcat
+docker rm  idpmysql
+
+sleep 2
+docker run -d -p 80:80 --name idpapache autoapache
+sleep 2
+docker run -d -p 49160:22 -p 49161:80 -p 3306:3306 --name idpmysql automysql
+sleep 2
+
+
+docker exec -i idpmysql mysql -uroot < submodules/idp-tomcat/export/testdb.sql
+docker run -d -p 8080:8080 --link idpmysql --name idptomcat autotomcat
+
+
+
+
+
+
 
 #/home/config.sh
 #docker run -d -P -e "DOCKER_HOST=$(docker-machine ip default)" apacherunning #/home/config.sh -D FOREGROUND
