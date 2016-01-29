@@ -1,13 +1,13 @@
-FROM apacherunning
+FROM httpd:2.4
 
-ADD . /var/www/html/idp2
-WORKDIR /var/www/html/idp2
 
-CMD cat replaceip.js
+ADD . /usr/local/apache2/htdocs/idp
+WORKDIR /usr/local/apache2/htdocs/idp
+
 
 EXPOSE 80
 
 
 
-ENTRYPOINT /usr/sbin/apachectl -D FOREGROUND
+#ENTRYPOINT /usr/sbin/apachectl -D FOREGROUND
 
