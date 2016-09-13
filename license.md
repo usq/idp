@@ -1,5 +1,3 @@
-This License applies to all changes and additions the authors made to the original project.
-
 MIT License
 
 Copyright (c) 2016 Andreas Eichner, Michael Conrads
